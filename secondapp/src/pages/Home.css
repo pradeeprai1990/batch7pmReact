@@ -1,0 +1,38 @@
+
+
+.homeSection{
+    width: 100%;
+    color: black;
+    padding: 50px 0px;
+    background-color:#ccc;
+}
+
+.productSection{
+    width: 100%;
+    color: black;
+    padding: 50px 0px;
+    background-color: lightgreen;
+}
+.productSection h1{
+    text-align: center;
+}
+
+.productMid{
+    max-width: 1320px;
+    margin: auto;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(4,1fr);
+}
+
+.productItems{
+    background-color: white;
+}
+.productItems img{
+    width: 100%;
+    display: block;
+}
+.productItems h3{
+    text-align: center;
+    padding: 10px 0px;
+}
