@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../common/Header'
 import { FaHeart, FaStar } from 'react-icons/fa'
 import { productData } from '../../Data/productData' //Array=[]
@@ -10,10 +10,32 @@ export default function Home() {
     let cname = "WsCubeTech"
 
     console.log(cname);
-    
 
+    let addData=(x,y)=>{
+        alert(x+y)
+
+
+    }
+
+    let [counter,setCounter]=useState(1)
+
+    let count=1
+    let showData=()=>{
+        setCounter(counter+1)
+    }
+    
+   let [password,setPassword]=useState(false)
     return (
-        <>
+        <>  
+
+            <input type={ password ? "text" : "password" } className='border-2' />
+            <button onClick={()=>setPassword( ! password  )} className='bg-red-500'>
+                { password ? "hide" : "show" }
+            </button>
+
+                <br/>
+             <button onClick={()=>setCounter(counter+1)} className='p-3 bg-red-500'>Enquire {counter}   </button>
+
             <Header
                 companyName={cname}
                 phone={888888888}
@@ -29,6 +51,13 @@ export default function Home() {
                         <p className='text-[25px] mt-4'>From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
 
                         <div className='flex gap-5 mt-[40px]'>
+                         <button onClick={()=>addData(20,30)} className='p-3 bg-red-500'>Add Data</button>
+                            
+                           
+                            
+                            <button onClick={()=>{
+                                alert("Welcome")
+                            }} className='p-3 bg-red-500'>Enquire</button>
                             
                            <BtnComp bgColor="red" text={"Get started"}/>
                            <BtnComp bgColor="red" text={"Offer"}/>
@@ -44,7 +73,7 @@ export default function Home() {
 
             <section className='py-10'>
                 <h2 className='text-center lg:text-[50px] text-[30px] font-bold mb-5'>Get difference Product</h2>
-                <div className='max-w-[1320px] mx-auto grid grid-cols-4 gap-5'>
+                <div className='max-w-[1320px] mx-auto grid lg:grid-cols-4 gap-5'>
 
                     {
                         productData.map((obj, index) => {
@@ -68,7 +97,7 @@ export default function Home() {
 
             <section className='py-10'>
                 <h2 className='text-center lg:text-[50px] text-[30px] font-bold mb-5'>Get difference Product</h2>
-                <div className='max-w-[1320px] mx-auto grid grid-cols-4 gap-5'>
+                <div className='max-w-[1320px] mx-auto grid lg:grid-cols-4  gap-5'>
 
                     {
                         productData.map((obj, index) => {
