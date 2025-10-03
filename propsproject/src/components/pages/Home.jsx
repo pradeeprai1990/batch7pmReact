@@ -4,6 +4,7 @@ import { FaHeart, FaStar } from 'react-icons/fa'
 import { productData } from '../../Data/productData' //Array=[]
 import Footer from '../common/Footer'
 import BtnComp from '../common/BtnComp'
+import Faq from '../Faq'
 
 export default function Home() {
 
@@ -25,16 +26,44 @@ export default function Home() {
     }
     
    let [password,setPassword]=useState(false)
+
+   let [modal,setModal]=useState(false)
     return (
         <>  
 
-            <input type={ password ? "text" : "password" } className='border-2' />
+
+            <div className={`w-[350px] fixed bg-lime-100 left-[50%] translate-x-[-50%] translate-y-[-50%]  duration-300 ${modal ? 'top-[50%]'   :'top-[-1000px]' }     `}>
+                <h3 className='p-2 font-bold relative'>Enqquire Now
+                    <span onClick={()=>setModal(false)} className='absolute right-2 cursor-pointer'>&times;</span>
+                </h3>
+
+                <form action="" className='p-3'>
+                    <div className='mb-3'>
+                         <label htmlFor="">Name</label>
+                         <input type="text" className='border-1 block w-[100%] h-[30px]' />
+                    </div>
+                    <div className='mb-3'>
+                         <label htmlFor="">Email</label>
+                         <input type="email" className='border-1 block w-[100%] h-[30px]' />
+                    </div>
+                    <div className='mb-3'>
+                         <label htmlFor="">Phone</label>
+                         <input type="email" className='border-1 block w-[100%] h-[30px]' />
+                    </div>
+                    <button  className='p-3 bg-red-500'>Enquire</button>
+                </form>
+
+
+            </div>
+
+
+            {/* <input type={ password ? "text" : "password" } className='border-2' />
             <button onClick={()=>setPassword( ! password  )} className='bg-red-500'>
                 { password ? "hide" : "show" }
             </button>
 
                 <br/>
-             <button onClick={()=>setCounter(counter+1)} className='p-3 bg-red-500'>Enquire {counter}   </button>
+             <button onClick={()=>setCounter(counter+1)} className='p-3 bg-red-500'>Enquire {counter}   </button> */}
 
             <Header
                 companyName={cname}
@@ -51,6 +80,9 @@ export default function Home() {
                         <p className='text-[25px] mt-4'>From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
 
                         <div className='flex gap-5 mt-[40px]'>
+
+                         <button onClick={()=>setModal(true)} className='bg-red-500 p-3'>Enquire Now</button>
+
                          <button onClick={()=>addData(20,30)} className='p-3 bg-red-500'>Add Data</button>
                             
                            
@@ -137,7 +169,7 @@ export default function Home() {
 
             </section>
 
-
+            <Faq/>        
 
 
 
