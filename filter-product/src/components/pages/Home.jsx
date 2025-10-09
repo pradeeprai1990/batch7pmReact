@@ -65,14 +65,7 @@ export default function Home() {
                 <br/>
              <button onClick={()=>setCounter(counter+1)} className='p-3 bg-red-500'>Enquire {counter}   </button> */}
 
-            <Header
-                companyName={cname}
-                phone={888888888}
-                email="pradeep@wscubetech.ocm"
-                user={["ram", "ravi", "raj"]}
-
-
-            />
+            
             <section className='py-10'>
                 <div className='max-w-[1320px] mx-auto grid lg:grid-cols-[55%_auto]  grid-cols-1 gap-5 items-center lg:px-0 px-[20px]'>
                     <div>
@@ -173,11 +166,7 @@ export default function Home() {
 
 
 
-            <Footer name="pradeep">
-
-                 <h1>Welcome to ws</h1> 
-
-            </Footer>
+           
         </>
     )
 }

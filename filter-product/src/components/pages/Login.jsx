@@ -5,7 +5,7 @@ import Footer from '../common/Footer'
 export default function Login() {
     return (
         <div>
-            <Header />
+           
             <div class="container mx-auto p-8 flex">
                 <div class="max-w-md w-full mx-auto">
                     <h1 class="text-4xl text-center mb-12 font-thin">Company</h1>
@@ -38,7 +38,7 @@ export default function Login() {
                 </div>
             </div>
 
-            <Footer />
+          
         </div>
     )
 }

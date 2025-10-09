@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 export default function Error404() {
     return (
         <div>
-            <Header />
+          
 
             <section class="bg-gray-900 min-h-screen">
                 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
@@ -19,7 +19,7 @@ export default function Error404() {
                     </div>
                 </div>
             </section>
-            <Footer />
+          
         </div>
     )
 }

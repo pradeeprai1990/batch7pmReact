@@ -5,7 +5,7 @@ import Footer from '../common/Footer'
 export default function Register() {
     return (
         <div>
-            <Header />
+          
             <div class="font-sans antialiased bg-grey-lightest">
 
                 <div class="w-full bg-green fixed shadow z-1">
@@ -67,7 +67,7 @@ export default function Register() {
                 </footer>
             </div>
 
-            <Footer />
+         
         </div>
     )
 }

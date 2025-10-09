@@ -5,7 +5,7 @@ import Footer from '../common/Footer'
 export default function About() {
   return (
     <div>
-      <Header/>
+    
       <div className='max-w-[1320px] mx-auto'>
            <h1 className='font-bold py-10 text-4xl'>About</h1>
 
@@ -62,7 +62,7 @@ export default function About() {
            </p>
       </div>
 
-      <Footer/>
+     
     </div>
   )
 }
