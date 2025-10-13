@@ -1,13 +1,24 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Loading from '../common/Loading'
-
+import ResponsivePagination from 'react-responsive-pagination';
+import { Link } from 'react-router';
 export default function Product() {
 
     let [loader, setLoader] = useState(false)
 
     let [sorting, setSorting] = useState(null)
     let [rating, setRating] = useState(null)
+    let [categoryFilter, setCategoryFilter] = useState([])
+    let [brandFilter, setBrandFilter] = useState([])
+    let [priceFilter, setPriceFilter] = useState([null, null])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(null); //14
+
+
+
+
+
     let [category, setCategory] = useState([])
     let [brand, setBrand] = useState([])
     let [product, setProduct] = useState([])
@@ -25,6 +36,9 @@ export default function Product() {
 
     }
 
+    //["ram","ravi","raj"] -> String  ram,ravi,raj
+
+
 
     let getProducts = () => {
 
@@ -32,12 +46,12 @@ export default function Product() {
 
         axios.get(`https://wscubetech.co/ecommerce-api/products.php`, {
             params: {
-                page: '',
-                limit: '',
-                categories: '',
-                brands: '',
-                price_from: '',
-                price_to: '',
+                page: currentPage,
+                limit: 12,
+                categories: categoryFilter.join(","),// ["ram","ravi"] //ram,ravi
+                brands: brandFilter.join(","),
+                price_from: priceFilter[0],
+                price_to: priceFilter[1],
                 discount_from: '',
                 discount_to: '',
                 rating,
@@ -54,9 +68,56 @@ export default function Product() {
                 })
 
                 setProduct(finalRes.data);
+                setTotalPages(finalRes.total_pages)
                 setLoader(false)
 
             })
+            .catch((error) => {
+
+            })
+    }
+
+
+    let getCategoryCheckData = (e) => {
+        if (
+            e.target.checked
+            &&
+            !categoryFilter.includes(e.target.value)
+        ) {
+
+            setCategoryFilter(
+                [...categoryFilter, e.target.value]
+            )
+
+        }
+        else {
+            setCategoryFilter(
+                categoryFilter.filter((value) => value != e.target.value)
+            )
+
+        }
+
+    }
+
+    let getBrandCheckData = (e) => {
+        if (
+            e.target.checked
+            &&
+            !brandFilter.includes(e.target.value)
+        ) {
+
+            setBrandFilter(
+                [...brandFilter, e.target.value]
+            )
+
+        }
+        else {
+            setBrandFilter(
+                brandFilter.filter((value) => value != e.target.value)
+            )
+
+        }
+
     }
 
     useEffect(() => {
@@ -67,8 +128,15 @@ export default function Product() {
 
     useEffect(() => {
         getProducts()
-    }, [sorting, rating])
+    }, [currentPage, sorting, rating, categoryFilter, brandFilter, priceFilter])
 
+
+    // useEffect(()=>{
+    //     window.onscroll=(e)=>{
+    //          console.log( window.scrollY);
+
+    //     }
+    // },[])
     return (
         <div>
             <div className=" grid md:grid-cols-[20%_auto] grid-cols-1 p-10">
@@ -87,7 +155,13 @@ export default function Product() {
                                     category.map((obj, index) => {
                                         return (
                                             <label key={index} className="flex items-center">
-                                                <input type="checkbox" className="mr-2" />
+                                                <input value={obj.slug}
+
+                                                    onChange={
+                                                        getCategoryCheckData
+                                                    }
+
+                                                    type="checkbox" className="mr-2" />
                                                 {obj.name}
                                             </label>
                                         )
@@ -108,7 +182,9 @@ export default function Product() {
                                     brand.map((obj, index) => {
                                         return (
                                             <label key={index} className="flex items-center">
-                                                <input type="checkbox" className="mr-2" />
+                                                <input value={obj.slug}
+                                                    onChange={getBrandCheckData}
+                                                    type="checkbox" className="mr-2" />
                                                 {obj.name}
                                             </label>
                                         )
@@ -124,20 +200,20 @@ export default function Product() {
                             <div className="space-y-2">
 
                                 <label className="flex items-center">
-                                    <input type="radio" className="mr-2" />
+                                    <input onClick={() => setPriceFilter([10, 250])} name='price' type="radio" className="mr-2" />
                                     Rs. 10 to Rs. 250
                                 </label>
 
                                 <label className="flex items-center">
-                                    <input type="radio" className="mr-2" />
+                                    <input onClick={() => setPriceFilter([250, 500])} name='price' type="radio" className="mr-2" />
                                     Rs. 250 to Rs. 500
                                 </label>
                                 <label className="flex items-center">
-                                    <input type="radio" className="mr-2" />
+                                    <input onClick={() => setPriceFilter([500, 1000])} name='price' type="radio" className="mr-2" />
                                     Rs. 500 to Rs. 1000
                                 </label>
                                 <label className="flex items-center">
-                                    <input type="radio" className="mr-2" />
+                                    <input onClick={() => setPriceFilter([1000, 100000])} name='price' type="radio" className="mr-2" />
                                     Rs. 1000 to Above
                                 </label>
 
@@ -232,6 +308,12 @@ export default function Product() {
                         }
 
                     </div>
+
+                    <ResponsivePagination
+                        current={currentPage} //1
+                        total={totalPages} //14
+                        onPageChange={setCurrentPage} //Current page 
+                    />
                 </div>
 
             </div>
@@ -241,10 +323,12 @@ export default function Product() {
 
 
 function ProductItem({ data }) {
-    let { name, description, price, image } = data
+    let { name, description, price, image,id } = data
     return (
         <div className="bg-white p-4 rounded-lg shadow border-1">
-            <img src={image} alt="Product" className="w-full h-40 object-cover rounded" />
+            <Link to={`/product-details/${id}`}>
+                <img src={image} alt="Product" className="w-full h-40 object-cover rounded" />
+           </Link>
             <h3 className="mt-2 font-semibold">
                 {name}
             </h3>
@@ -255,6 +339,9 @@ function ProductItem({ data }) {
             <p className="text-gray-600">
                 {price}
             </p>
+            <Link to={`/product-details/${id}`}>
+                 <button className='p-2 bg-red-500'>View Details</button>
+            </Link>
         </div>
     )
 }

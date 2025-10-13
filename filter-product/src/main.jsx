@@ -10,6 +10,7 @@ import Register from './components/pages/Register.jsx'
 import Error404 from './components/pages/Error404.jsx'
 import Product from './components/pages/Product.jsx'
 import Layout from './components/common/Layout.jsx'
+import ProductDetails from './components/pages/ProductDetails.jsx'
 
 createRoot(document.getElementById('root')).render(
     <>
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
                    
                     <Route path='/register' element={<Register />} />
                     <Route path='/product' element={<Product />} />
+                    <Route path='/product-details/:pid' element={<ProductDetails />} />
     
                     <Route path='*' element={<Error404 />} />
 
