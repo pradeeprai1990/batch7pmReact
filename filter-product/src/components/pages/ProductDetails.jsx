@@ -37,6 +37,8 @@ export default function ProductDetails() {
     //     "https://cdn.dummyjson.com/products/images/vehicle/Pacifica%20Touring/3.png"
     // ];
 
+    
+
     return (
         <div className="max-w-[1320px] mx-auto px-4 py-8">
             {

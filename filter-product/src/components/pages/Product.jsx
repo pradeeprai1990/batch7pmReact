@@ -1,9 +1,12 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Loading from '../common/Loading'
 import ResponsivePagination from 'react-responsive-pagination';
 import { Link } from 'react-router';
+import { cartContext } from '../../context/MainContext';
 export default function Product() {
+
+    let { cart, setCart } = useContext(cartContext)
 
     let [loader, setLoader] = useState(false)
 
@@ -323,12 +326,50 @@ export default function Product() {
 
 
 function ProductItem({ data }) {
-    let { name, description, price, image,id } = data
+    let { cart, setCart } = useContext(cartContext)
+
+
+
+    let { name, description, price, image, id } = data
+
+
+    let addTocart = () => {
+        let cartObj = {
+            name,
+            price,
+            image,
+            id,
+            qty: 1
+        }
+
+        let checkProductinCart = cart.find((obj) => obj.id == id)
+        if (checkProductinCart) {
+            alert("Your Cart Item Already Added in Cart")
+        }
+        else {
+            setCart([...cart, cartObj])
+        }
+        // console.log(cartObj);
+
+
+    }
+
+
+    let removeCart=()=>{
+        if(confirm("Are You Sure want to delete?")){
+             let filterArray= cart.filter((obj)=>obj.id!=id)
+             setCart(filterArray)
+        }
+        
+    }
+
+    let checkProductinCart = cart.find((obj) => obj.id == id)
+
     return (
         <div className="bg-white p-4 rounded-lg shadow border-1">
             <Link to={`/product-details/${id}`}>
                 <img src={image} alt="Product" className="w-full h-40 object-cover rounded" />
-           </Link>
+            </Link>
             <h3 className="mt-2 font-semibold">
                 {name}
             </h3>
@@ -339,9 +380,23 @@ function ProductItem({ data }) {
             <p className="text-gray-600">
                 {price}
             </p>
-            <Link to={`/product-details/${id}`}>
-                 <button className='p-2 bg-red-500'>View Details</button>
-            </Link>
+            <div className='flex gap-2'>
+
+                {
+                    checkProductinCart
+                    ?
+                         <button className='p-2 bg-red-400 cursor-pointer' onClick={removeCart}>Remove Cart</button>
+               
+                    :
+                     <button className='p-2 bg-green-400 cursor-pointer' onClick={addTocart}>Add To Cart</button>
+               
+                }
+               
+                <Link to={`/product-details/${id}`}>
+                    <button className='p-2 bg-red-500'>View Details</button>
+                </Link>
+            </div>
+
         </div>
     )
 }

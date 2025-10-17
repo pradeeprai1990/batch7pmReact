@@ -11,30 +11,38 @@ import Error404 from './components/pages/Error404.jsx'
 import Product from './components/pages/Product.jsx'
 import Layout from './components/common/Layout.jsx'
 import ProductDetails from './components/pages/ProductDetails.jsx'
+import MainContext from './context/MainContext.jsx'
+import Cart from './components/pages/Cart.jsx'
 
 createRoot(document.getElementById('root')).render(
     <>
-        <BrowserRouter>
-            <Routes>
 
-                <Route element={<Layout/>}>
+        <MainContext>
+            <BrowserRouter>
+                <Routes>
 
-                    <Route path='/' element={<Home />} />
-                    <Route path='/about-us' element={<About />} />
-                   
-                    <Route path='/register' element={<Register />} />
-                    <Route path='/product' element={<Product />} />
-                    <Route path='/product-details/:pid' element={<ProductDetails />} />
-    
-                    <Route path='*' element={<Error404 />} />
+                    <Route element={<Layout />}>
 
-                </Route>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/about-us' element={<About />} />
 
-                
-                 <Route path='/login' element={<Login />} />
+                        <Route path='/register' element={<Register />} />
+                        <Route path='/product' element={<Product />} />
+                         <Route path='/cart' element={<Cart />} />
+                        <Route path='/product-details/:pid' element={<ProductDetails />} />
 
-            </Routes>
-        </BrowserRouter>
+                        <Route path='*' element={<Error404 />} />
+
+                    </Route>
+
+
+                    <Route path='/login' element={<Login />} />
+
+                </Routes>
+            </BrowserRouter>
+        </MainContext>
+
+        
     </>
 
 

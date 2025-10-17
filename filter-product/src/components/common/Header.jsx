@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router';
 import { IoCloseSharp } from "react-icons/io5";
+import { cartContext } from '../../context/MainContext';
 
 
 export default function Header({ companyName, email, phone, user }) {
 
-    // console.log(props.email);
+   let {cart}  =useContext(cartContext) //Object { cart:[],setCart:f() }
+  
+   
+   // console.log(props.email);
     // console.log(props.phone);
     //props Object
 
@@ -58,7 +62,7 @@ export default function Header({ companyName, email, phone, user }) {
                                 <Link to={'/about-us'} class="block py-2 px-3 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">About</Link>
                             </li>
                             <li>
-                                <a href="#" class="block py-2 px-3 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Cart (5)</a>
+                                <Link to={'/cart'} class="block py-2 px-3 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Cart ({cart.length})</Link>
                             </li>
                              <li>
                                 <Link to={'/product'} class="block py-2 px-3 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Product</Link>
